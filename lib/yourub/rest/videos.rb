@@ -17,17 +17,15 @@ module Yourub
           Yourub::REST::Request.new(client, "videos", "list", params)
         end
 
-        def single_video(client, video_id)
-          params = single_video_params(video_id)
+        def single_video(client, video_id, fields=nil)
+          params = single_video_params(video_id, fields)
           list(client, params)
         end
 
         private
 
-        def single_video_params(video_id)
-          fields = URI::encode(
-            'items(id,snippet(title,thumbnails),statistics(viewCount))'
-          )
+        def single_video_params(video_id, fields='items(id,snippet(title,thumbnails),statistics(viewCount))')
+          fields = URI::encode(fields)
           { :id => video_id,
             :part => 'snippet,statistics,id',
             :fields => fields }
