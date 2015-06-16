@@ -45,8 +45,8 @@ module Yourub
     # @example
     #   client = Yourub::Client.new
     #   client.get("G2b0OIkTraI")
-    def get(video_id)
-      params = {:id => video_id, :part => 'snippet,contentDetails,statistics'}
+    def get(video_id, part = 'snippet,contentDetails,statistics')
+      params = {:id => video_id, :part => part}
       request = Yourub::REST::Videos.list(self,params)
       Yourub::Result.format(request).first
     end
