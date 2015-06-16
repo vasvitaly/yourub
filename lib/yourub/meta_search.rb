@@ -9,7 +9,7 @@ module Yourub
     # @example
     #   client = Yourub::Client.new
     #   client.search(country: "DE", category: "sports", order: 'date')
-    def search(criteria)
+    def search(criteria, fields=nil)
       begin
         @api_options= {
           :part            => 'snippet',
@@ -20,6 +20,7 @@ module Yourub
         @categories = []
         @count_filter = {}
         @criteria = Yourub::Validator.confirm(criteria)
+        @fields = fields
         search_by_criteria do |result|
           yield result
         end
@@ -116,7 +117,7 @@ private
 
     def get_details_for_each_video(video_list)
       video_list.data.items.each do |video_item|
-        v = Yourub::REST::Videos.single_video(self, video_item.id.videoId)
+        v = Yourub::REST::Videos.single_video(self, video_item.id.videoId, @fields)
         v = Yourub::Result.format(v)
         if v && Yourub::CountFilter.accept?(v.first)
           yield v.first
