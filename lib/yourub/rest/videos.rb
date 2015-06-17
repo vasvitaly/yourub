@@ -18,7 +18,7 @@ module Yourub
         end
 
         def single_video(client, video_id, part=nil, fields=nil)
-          params = single_video_params(video_id, fields)
+          params = single_video_params(video_id, part, fields)
           list(client, params)
         end
 
