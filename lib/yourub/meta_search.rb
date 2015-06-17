@@ -9,7 +9,7 @@ module Yourub
     # @example
     #   client = Yourub::Client.new
     #   client.search(country: "DE", category: "sports", order: 'date')
-    def search(criteria, fields=nil)
+    def search(criteria, part=nil, fields=nil)
       begin
         @api_options= {
           :part            => 'snippet',
